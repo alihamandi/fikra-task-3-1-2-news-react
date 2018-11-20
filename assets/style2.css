@@ -1,0 +1,74 @@
+#main {
+    padding: 0% 10%;
+ 
+    
+}
+
+.body{
+    display: flex;
+    align-content: center;
+    width: 90%;
+    min-width: 650px;
+}
+
+.article{
+    position: relative;
+    display: flex;
+    margin: 20px 0px 20px 0px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px  #e5e9f2 solid;
+    align-content: center;
+    min-width: 1000px;
+}
+.content{
+    padding: 0 ;
+}
+
+.photo{
+border-radius: 5px;
+padding-right: 2%;
+
+}
+
+.date{
+    position: absolute;
+    top: 82%;
+    color: cornflowerblue;
+    font-weight: bold;
+
+}
+
+.head{
+    font-family: serif;
+    text-transform: capitalize;
+    padding-bottom: 10px;
+    width: 80%;
+}
+
+.des{
+    max-width: 90vh;
+    min-width: 650px;
+}
+
+.img {
+    object-fit: cover;
+    max-width: 165px;
+    max-height: 165px;
+    padding: 0;
+    margin: 0;
+}
+
+.arrows{
+    position: absolute;
+    right: 3%;
+    top: 35%;
+    align-content: center;
+    text-align: center;
+}
+
+
+
+
+
