@@ -24,22 +24,12 @@ class News extends Component{
         
       }
 
-    // onClickUp(event , i){
-    //     this.setState({
-    //         voting : this.state.voting + 1
-    //     })
-    //     arr.push = this.state.voting
-        
-    //     console.log(arr)
-    // }
-    // onClickDown(event , i){
-    //     this.setState({
-    //         voting : this.state.voting -1
-    //     })
-    //     arr.push = this.state.voting
-        
-    //     console.log(arr)
-    // }
+    onClickUp(event , i){
+    }
+    onClickDown(event , i){
+    }
+
+   
 
     onSortChange(event){
         this.setState({ 
@@ -134,10 +124,10 @@ class News extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="arrows"> 
-                                            <img width="30px" src={up} alt="up vote" /*onClick = {this.onClickUp.bind(this)}*//>
-                                            <p>{this.state.voting}</p>
-                                            <img width="30px" src={down} alt="down vote" /*onClick = {this.onClickDown.bind(this)}*//>
+                                    <div  className="arrows"> 
+                                            <img width="30px" src={up} alt="up vote" onClick = {this.onClickUp.bind(this,i)}/>
+                                            <div id={i} >{this.state.voting}</div>
+                                            <img width="30px" src={down} alt="down vote" onClick = {this.onClickDown.bind(this,i)}/>
 
                                     </div>
 
@@ -148,12 +138,7 @@ class News extends Component{
         </React.Fragment>
         
     }
-
-
-
 }
-
-
 
 // function NewsItem(){
 //     return <div id="main">
@@ -180,9 +165,6 @@ class News extends Component{
      
 
 // }
-
-
-
 
 function App() {
     return <div>
