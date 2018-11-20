@@ -15,7 +15,8 @@ class News extends Component{
             news : [],
             searchValue:'',
             articleNo : 20,
-            sorting : ''
+            sorting : '',
+            voting : 0 ,
         }
 
         this.getNews()
@@ -23,7 +24,24 @@ class News extends Component{
         
       }
 
-      onSortChange(event){
+    // onClickUp(event , i){
+    //     this.setState({
+    //         voting : this.state.voting + 1
+    //     })
+    //     arr.push = this.state.voting
+        
+    //     console.log(arr)
+    // }
+    // onClickDown(event , i){
+    //     this.setState({
+    //         voting : this.state.voting - 1
+    //     })
+    //     arr.push = this.state.voting
+        
+    //     console.log(arr)
+    // }
+
+    onSortChange(event){
         this.setState({ 
             sorting : event.target.value
         })
@@ -33,7 +51,6 @@ class News extends Component{
     getNews(searchTerm = 'iraq' , sorting = 'publishedAt'){
         fetch(`https://newsapi.org/v2/everything?q=${searchTerm}&sortBy=${sorting}&apiKey=1304dda50b3c4066b642db00ccf7ae98`)
         .then((response)=>{
-            console.log(sorting)
             return response.json()
         }).then((data)=>{
             this.setState({
@@ -62,6 +79,7 @@ class News extends Component{
             articleNo : event.target.value
           })
       }
+
 
 
 
@@ -95,7 +113,7 @@ class News extends Component{
     
             <div>
                 {this.state.news.map((item , i)=>{
-                    console.log(item)
+                    
                     if (i<this.state.articleNo) {
                         return(
                             <div key={i} id="main">
@@ -116,12 +134,13 @@ class News extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div className="arrows">
-                                        <img width="30px" src={up} alt="up vote"/>
-                                        <p>0</p>
-                                        <img width="30px" src={down} alt="down vote"/>
+                                    <div className="arrows"> 
+                                            <img width="30px" src={up} alt="up vote" /*onClick = {this.onClickUp.bind(this)}*//>
+                                            <p>{this.state.voting}</p>
+                                            <img width="30px" src={down} alt="down vote" /*onClick = {this.onClickDown.bind(this)}*//>
+
                                     </div>
+
                                 </article>
                             </div>
                 )}})}
