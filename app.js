@@ -34,7 +34,7 @@ class News extends Component{
     // }
     // onClickDown(event , i){
     //     this.setState({
-    //         voting : this.state.voting - 1
+    //         voting : this.state.voting -1
     //     })
     //     arr.push = this.state.voting
         
@@ -148,7 +148,11 @@ class News extends Component{
         </React.Fragment>
         
     }
+
+
+
 }
+
 
 
 // function NewsItem(){
