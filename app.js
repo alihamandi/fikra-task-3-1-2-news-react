@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 import logo from './assets/logo.png' ;
 import up from './assets/green.png' ;
 import down from './assets/grey.png' ;
-
-
-
-
+let votingArr;
 
 class News extends Component{
     constructor(){
@@ -16,20 +13,30 @@ class News extends Component{
             searchValue:'',
             articleNo : 20,
             sorting : '',
-            voting : 0 ,
+            voting : [],
         }
-
         this.getNews()
-
-        
       }
 
-    onClickUp(event , i){
+    onClickUp(id){
+        votingArr = this.state.voting 
+        votingArr[id] = votingArr[id] + 1
+        this.changeValue(votingArr)
     }
-    onClickDown(event , i){
+    onClickDown(id){
+        votingArr = this.state.voting 
+        votingArr[id] = votingArr[id] - 1
+        this.changeValue(votingArr)
     }
+    changeValue(value){
+        localStorage.setItem("counterDB" , JSON.stringify(value)) 
+        let counterValue = JSON.parse(localStorage.getItem("counterDB"))
+        this.setState({
+            voting : counterValue
+        })
+}
 
-   
+ 
 
     onSortChange(event){
         this.setState({ 
@@ -125,9 +132,9 @@ class News extends Component{
                                         </div>
                                     </div>
                                     <div  className="arrows"> 
-                                            <img width="30px" src={up} alt="up vote" onClick = {this.onClickUp.bind(this,i)}/>
-                                            <div id={i} >{this.state.voting}</div>
-                                            <img width="30px" src={down} alt="down vote" onClick = {this.onClickDown.bind(this,i)}/>
+                                            <img width="30px" src={up} alt="up vote" onClick = {this.onClickUp.bind(this , i)}/>
+                                            <div id={i} >{this.state.voting[i]}</div>
+                                            <img width="30px" src={down} alt="down vote" onClick = {this.onClickDown.bind(this , i)}/>
 
                                     </div>
 
