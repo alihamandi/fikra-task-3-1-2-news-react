@@ -1,124 +1,120 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import logo from './assets/logo.png' ;
-import up from './assets/green.png' ;
-import down from './assets/grey.png' ;
+import logo from './assets/logo.png';
+import up from './assets/green.png';
+import down from './assets/grey.png';
 let votingArr;
 let counterValue;
 
-class News extends Component{
-    constructor(){
+class News extends Component {
+    constructor() {
         super()
         this.state = {
-            news : [],
-            searchValue:'',
-            articleNo : 20,
-            sorting : '',
-            voting : [],
+            news: [],
+            searchValue: '',
+            articleNo: 20,
+            sorting: '',
+            voting: [],
         }
         this.getNews()
-      }
+    }
 
-    onClickUp(id){
-        votingArr = this.state.voting 
-        votingArr[id] +=1
+    onClickUp(id) {
+        votingArr = this.state.voting
+        votingArr[id] += 1
         this.changeValue(votingArr)
+    }
+
+    onClickDown(id) {
+        votingArr = this.state.voting
+        votingArr[id] -= 1
+        this.changeValue(votingArr)
+    }
+
+    changeValue(value) {
+        localStorage.setItem("counterDB", JSON.stringify(value))
+        this.setState({
+            voting: JSON.parse(localStorage.getItem("counterDB"))
+        })
+    }
+
+    onSortChange(event) {
+        this.setState({
+            sorting: event.target.value
+        })
+        this.getNews(this.state.searchTerm, this.state.sorting)
+    }
+
+    getNews(searchTerm = 'iraq', sorting = 'publishedAt') {
+        fetch(`https://newsapi.org/v2/everything?q=${searchTerm}&sortBy=${sorting}&apiKey=1304dda50b3c4066b642db00ccf7ae98`)
+            .then((response) => {
+                return response.json()
+            }).then((data) => {
+                this.setState({
+                    news: data.articles
+
+                })
+            })
     }
     
-    onClickDown(id){
-        votingArr = this.state.voting 
-        votingArr[id] -=1
-        this.changeValue(votingArr)
+    onInputChange(event) {
+        this.setState({
+            searchValue: event.target.value
+        })
     }
 
-    changeValue(value){
-        localStorage.setItem("counterDB" , JSON.stringify(value)) 
-        counterValue = JSON.parse(localStorage.getItem("counterDB"))
-        this.setState({
-            voting : counterValue
-        })
-}
-
-    onSortChange(event){
-        this.setState({ 
-            sorting : event.target.value
-        })
-        this.getNews(this.state.searchTerm , this.state.sorting)
-    }
-
-    getNews(searchTerm = 'iraq' , sorting = 'publishedAt'){
-        fetch(`https://newsapi.org/v2/everything?q=${searchTerm}&sortBy=${sorting}&apiKey=1304dda50b3c4066b642db00ccf7ae98`)
-        .then((response)=>{
-            return response.json()
-        }).then((data)=>{
-            this.setState({
-                news: data.articles
-                
-            })
-        })
-      }
-    onInputChange(event){
-        this.setState({
-          searchValue: event.target.value
-        })
-      } 
-    OnKeyUp(event){
+    OnKeyUp(event) {
         if (event.key == 'Enter') {
 
             this.getNews(this.state.searchValue)
 
             this.setState({
-                searchValue:''
-            }) 
+                searchValue: ''
+            })
         }
-      }
-    onNoChange(event){
-          this.setState({
-            articleNo : event.target.value
-          })
-      }
+    }
 
+    onNoChange(event) {
+        this.setState({
+            articleNo: event.target.value
+        })
+    }
 
-
-
-
-    render(){
+    render() {
         return <React.Fragment>
             <header id="navBar">
                 <div >
-                    <img id="logo" src={logo} alt="logo"/>
+                    <img id="logo" src={logo} alt="logo" />
                 </div>
                 <div id="options">
                     <div id="lists">
                         <select id="select1" onChange={this.onNoChange.bind(this)}>
-                        <option value="20">20</option>
-                        <option value="15">15</option>
-                        <option value="10">10</option>
-                        <option value="5">5</option>
+                            <option value="20">20</option>
+                            <option value="15">15</option>
+                            <option value="10">10</option>
+                            <option value="5">5</option>
                         </select>
                         <select id="select2" onChange={this.onSortChange.bind(this)}>
-                        <option value="publishedAt">default(date)</option>
-                        <option value="publishedAt">Date</option>
-                        <option value="title">Title</option>
-                        <option value="voting">Most voted</option>
+                            <option value="publishedAt">default(date)</option>
+                            <option value="publishedAt">Date</option>
+                            <option value="title">Title</option>
+                            <option value="voting">Most voted</option>
                         </select>
                     </div>
                     <div id="search-box">
-                            <input  id="search" placeholder="Search term" type="text" onChange={this.onInputChange.bind(this)} onKeyUp={this.OnKeyUp.bind(this)}  value={this.state.searchValue}/>
+                        <input id="search" placeholder="Search term" type="text" onChange={this.onInputChange.bind(this)} onKeyUp={this.OnKeyUp.bind(this)} value={this.state.searchValue} />
                     </div>
                 </div>
             </header>
-    
             <div>
-                {this.state.news.map((item , i)=>{
-                    
-                    if (i<this.state.articleNo) {
-                        return(
+                {this.state.news.map((item, i) => {
+                    if (i < this.state.articleNo) {
+                        return (
                             <div key={i} id="main">
-                                <article  className="article">
+                                <article className="article">
                                     <div className="body">
-                                        <div  className="photo">
-                                            <img  className="img"  width="165" height="165" src={item.urlToImage} alt="photo"/>
+                                        <div className="photo">
+                                            <img className="img" width="165" height="165" src={item.urlToImage} alt="photo" />
                                         </div>
                                         <div className="content">
                                             <div className="head">
@@ -132,19 +128,19 @@ class News extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                    <div  className="arrows"> 
-                                            <img width="30px" src={up} alt="up vote" onClick = {this.onClickUp.bind(this , i)}/>
-                                            <div id={i} >{this.state.voting[i]}</div>
-                                            <img width="30px" src={down} alt="down vote" onClick = {this.onClickDown.bind(this , i)}/>
-
+                                    <div className="arrows">
+                                        <img width="30px" src={up} alt="up vote" onClick={this.onClickUp.bind(this, i)} />
+                                        <div id={i} >{this.state.voting[i]}</div>
+                                        <img width="30px" src={down} alt="down vote" onClick={this.onClickDown.bind(this, i)} />
                                     </div>
-
                                 </article>
                             </div>
-                )}})}
+                        )
+                    }
+                })}
             </div>
         </React.Fragment>
-        
+
     }
 }
 
@@ -165,19 +161,19 @@ class News extends Component{
 //                 <time>19.10.2018</time>
 //             </div>
 //         </div>
-        
+
 //         </article>
-        
+
 
 //     </div>
-     
+
 
 // }
 
 function App() {
     return <div>
-      <News/>
+        <News />
     </div>
-  }
-  
-  ReactDOM.render(<App/>, document.getElementById('root'))
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
