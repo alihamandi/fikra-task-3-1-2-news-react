@@ -4,6 +4,7 @@ import logo from './assets/logo.png' ;
 import up from './assets/green.png' ;
 import down from './assets/grey.png' ;
 let votingArr;
+let counterValue;
 
 class News extends Component{
     constructor(){
@@ -20,23 +21,23 @@ class News extends Component{
 
     onClickUp(id){
         votingArr = this.state.voting 
-        votingArr[id] = votingArr[id] + 1
+        votingArr[id] +=1
         this.changeValue(votingArr)
     }
+    
     onClickDown(id){
         votingArr = this.state.voting 
-        votingArr[id] = votingArr[id] - 1
+        votingArr[id] -=1
         this.changeValue(votingArr)
     }
+
     changeValue(value){
         localStorage.setItem("counterDB" , JSON.stringify(value)) 
-        let counterValue = JSON.parse(localStorage.getItem("counterDB"))
+        counterValue = JSON.parse(localStorage.getItem("counterDB"))
         this.setState({
             voting : counterValue
         })
 }
-
- 
 
     onSortChange(event){
         this.setState({ 
