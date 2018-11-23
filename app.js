@@ -15,13 +15,12 @@ class News extends Component {
             searchValue: '',
             articleNo: 20,
             sorting: '',
-            voting: JSON.parse(localStorage.getItem("counterDB")),
+            voting: JSON.parse(localStorage.getItem("counterDB")) || [],
         }
         this.getNews()
     }
 
     onClickUp(id) {
-        
         votingArr[id] = votingArr[id] + 1
         this.changeValue(votingArr)
     }
@@ -33,7 +32,6 @@ class News extends Component {
     }
 
     changeValue(value) {
-
         localStorage.setItem("counterDB", JSON.stringify(value))
         this.setState({
             voting: JSON.parse(localStorage.getItem("counterDB"))
