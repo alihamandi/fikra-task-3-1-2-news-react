@@ -14,28 +14,30 @@ class News extends Component {
             searchValue: '',
             articleNo: 20,
             sorting: '',
-            voting: [],
+            voting: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         }
         this.getNews()
     }
 
     onClickUp(id) {
         votingArr = this.state.voting
-        votingArr[id] += 1
+        votingArr[id] = votingArr[id] + 1
         this.changeValue(votingArr)
     }
 
     onClickDown(id) {
         votingArr = this.state.voting
-        votingArr[id] -= 1
+        votingArr[id] = votingArr[id] - 1        
         this.changeValue(votingArr)
     }
 
     changeValue(value) {
+        console.log(value)
         localStorage.setItem("counterDB", JSON.stringify(value))
         this.setState({
-            voting: JSON.parse(localStorage.getItem("counterDB"))
+            voting:JSON.parse(localStorage.getItem("counterDB"))
         })
+
     }
 
     onSortChange(event) {
@@ -51,8 +53,7 @@ class News extends Component {
                 return response.json()
             }).then((data) => {
                 this.setState({
-                    news: data.articles
-
+                    news: data.articles,
                 })
             })
     }
