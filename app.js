@@ -4,7 +4,6 @@ import logo from './assets/logo.png';
 import up from './assets/green.png';
 import down from './assets/grey.png';
 let votingArr;
-let counterValue;
 
 class News extends Component {
     constructor() {
@@ -14,7 +13,7 @@ class News extends Component {
             searchValue: '',
             articleNo: 20,
             sorting: '',
-            voting: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            voting: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         }
         this.getNews()
     }
@@ -27,7 +26,7 @@ class News extends Component {
 
     onClickDown(id) {
         votingArr = this.state.voting
-        votingArr[id] = votingArr[id] - 1        
+        votingArr[id] = votingArr[id] - 1
         this.changeValue(votingArr)
     }
 
@@ -35,7 +34,7 @@ class News extends Component {
         console.log(value)
         localStorage.setItem("counterDB", JSON.stringify(value))
         this.setState({
-            voting:JSON.parse(localStorage.getItem("counterDB"))
+            voting: JSON.parse(localStorage.getItem("counterDB"))
         })
 
     }
@@ -57,7 +56,7 @@ class News extends Component {
                 })
             })
     }
-    
+
     onInputChange(event) {
         this.setState({
             searchValue: event.target.value
