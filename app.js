@@ -4,7 +4,9 @@ import logo from './assets/logo.png';
 import up from './assets/green.png';
 import down from './assets/grey.png';
 
-let votingArr=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+let votingArr= JSON.parse(localStorage.getItem("counterDB")) ;
+
 
 
 class News extends Component {
@@ -18,15 +20,17 @@ class News extends Component {
             voting: JSON.parse(localStorage.getItem("counterDB")) || [],
         }
         this.getNews()
+        this.changeValue(votingArr)
     }
 
     onClickUp(id) {
+        votingArr=this.state.voting
         votingArr[id] = votingArr[id] + 1
         this.changeValue(votingArr)
     }
 
     onClickDown(id) {
-        
+        votingArr=this.state.voting
         votingArr[id] = votingArr[id] - 1
         this.changeValue(votingArr)
     }
@@ -34,11 +38,12 @@ class News extends Component {
     changeValue(value) {
         localStorage.setItem("counterDB", JSON.stringify(value))
         this.setState({
-            voting: JSON.parse(localStorage.getItem("counterDB"))
+            voting: JSON.parse(localStorage.getItem("counterDB")) || []
         })
     }
 
     onSortChange(event) {
+        
         this.setState({
             sorting: event.target.value
         })
